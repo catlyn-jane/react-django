@@ -14,7 +14,7 @@ export default function DeleteProduct({ student }: { student: Student }) {
     const mutation = useMutation({
         mutationFn: (id: string) => deleteUser(id),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['students'] })
+            queryClient.invalidateQueries({ queryKey: ['users'] })
             toast.success(`Student ${student.first_name} deleted!`)
             setOpen(false)
         },
