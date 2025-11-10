@@ -80,7 +80,7 @@ const AddEdit = ({ btnType, student }: { btnType: string, student?: Student }) =
     const mutation = useMutation({
         mutationFn: ({data, methodType}:{ data: {id?: string, first_name?:string, middle_name?: string, last_name?: string, course?: any, subjects?: any}, methodType: string}) => addeditUsers(data, methodType),
         onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ['students']})
+            queryClient.invalidateQueries({queryKey: ['users']})
             toast.success(`Student: ${btnType === "add" ? "added!": `ID ${student?.id} updated!`}`)
             setOpen(false)
             
@@ -114,7 +114,7 @@ const AddEdit = ({ btnType, student }: { btnType: string, student?: Student }) =
             middle_name: (data.middle_name === student?.middle_name ? undefined : data.middle_name),
             last_name: (data.last_name === student?.last_name ? undefined : data.last_name),
             course: (data.course === student?.course ? undefined : data.course),
-            subjects: (data.subjects === student?.subjects ? undefined : data.subjects)
+            subjects: (data.subjects === student?.subjects ? undefined : [data.subjects])
         }
         console.log(newData)
         mutation.mutate({data: newData, methodType: method})
