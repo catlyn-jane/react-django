@@ -6,9 +6,8 @@ function MainLayout() {
     return (
         <SidebarProvider>
             <AppSideBar/>
-            <main className="w-full">
                 <SidebarTrigger />
-        
+            <main className="w-full">
                 <div className="flex flex-col items-center justify-center p-5">
                     <Outlet />
                 </div>

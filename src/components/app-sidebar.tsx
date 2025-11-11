@@ -22,7 +22,7 @@ const main_items = [
         icon: Home
     },
     {
-        title: "Users",
+        title: "Students",
         url: "/main/users",
         icon: UserCog
     },
@@ -38,7 +38,7 @@ export function AppSideBar() {
     return (
         <Sidebar>
             <SidebarHeader>
-                <h1>Website name</h1>
+                <h1>Students Information Site</h1>
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>

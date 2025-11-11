@@ -16,7 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { addeditUsers, fetchCourses, fetchSubjects } from "@/api/studentsAPI"
+import { addeditUsers, fetchSubjects } from "@/api/studentsAPI"
 import { toast } from "sonner"
 import { useQuery } from "@tanstack/react-query";
 
@@ -42,13 +42,7 @@ const formSchema = z.object({
             error: "last_name max length is 50 characters"
         }),
     course: z
-        .string()
-        .min(1, {
-            error: "course is required"
-        })
-        .max(50, {
-            error: "course max length is 50 characters"
-        }),
+        .string(),
     subjects: z
         .string()
         .min(1, {
@@ -64,12 +58,6 @@ const AddEdit = ({ btnType, student }: { btnType: string, student?: Student }) =
     const [open, setOpen] = useState<boolean>(false)
 
     const queryClient = useQueryClient()
-
-    const { data: courses = [] } = useQuery({
-        queryKey: ['courses'],
-        queryFn: fetchCourses,
-        enabled: open
-    })
 
     const { data: subjects = [] } = useQuery({
         queryKey: ['subjects'],
@@ -113,7 +101,7 @@ const AddEdit = ({ btnType, student }: { btnType: string, student?: Student }) =
             first_name: (data.first_name === student?.first_name ? undefined : data.first_name),
             middle_name: (data.middle_name === student?.middle_name ? undefined : data.middle_name),
             last_name: (data.last_name === student?.last_name ? undefined : data.last_name),
-            course: (data.course === student?.course ? undefined : data.course),
+            course: "1",
             subjects: (data.subjects === student?.subjects ? undefined : [data.subjects])
         }
         console.log(newData)
@@ -203,23 +191,8 @@ const AddEdit = ({ btnType, student }: { btnType: string, student?: Student }) =
                         <Controller
                             name="course"
                             control={form.control}
-                            render={({ field, fieldState }) => (
-                                <Field>
-                                    <FieldLabel htmlFor="course">Course</FieldLabel>
-                                    <select 
-                                        {...field} 
-                                        id="course"
-                                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                                    >
-                                        <option value="">Select a course</option>
-                                        {courses.map((course: any) => (
-                                            <option key={course.id} value={course.id}>
-                                                {course.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                                </Field>
+                            render={({ field }) => (
+                                <input type="hidden" {...field} value="1" />
                             )}
                         />
                         <Controller

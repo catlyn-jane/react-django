@@ -4,7 +4,7 @@ import GuestLayout from '@/components/layouts/GuestLayout'
 const GuestRouter = [
     {
         path: '/',
-        Component: GuestLayout,// layout for Guest
+        Component: GuestLayout,
         children: [
             {
                 index: true,

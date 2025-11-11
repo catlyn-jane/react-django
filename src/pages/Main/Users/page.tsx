@@ -22,8 +22,8 @@ function Students() {
 
     return (
         <>
-            <h1>Students Page</h1>
-            <div className="flex flex-col gap-2">
+            <h1 style={{fontFamily: 'fantasy', fontSize: '30px'}}>Students Page</h1>
+            <div className="flex flex-col gap-2 rounded-lg">
                 <div className="flex-row-reverse flex">
                     <AddEdit btnType="add" />
                 </div>
